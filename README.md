@@ -1,8 +1,26 @@
-# React + Vite
+Области хранения данных:
+- база данных на json-server
+- BFF
+- redux store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Сущности приложения:
 
-Currently, two official plugins are available:
+- пользователь: БД(список пользователей)BFF(сесия текущего) , стор(отображения в браузере)
+-роль пользователя: БД(список ролей), BFF(сесия пользователя с ролью), стор(использовние на клиенте)
+- статья: БД(список статей), стор(отображение в браузере)
+- комментарий: БД(список коментариев) стор(отображение в браузере)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Таблицы БД:
+- пользователи - users: id/login / password/ registed_at/ role_id
+-роли -roles: id/namurl /
+-статьи -posts: id/title/image_url/ content/published_at
+- комментарии -comments/ id / autor_id / post_id/ content
+
+Схема состояния на BFF:
+-сессия текущего пользователя: login/ password/ role
+ 
+ Схема для редакс стора (на клиенте):
+ -user: id/login/roleid
+ -posts: массив post: id / title/imageUrl/ publichedAt / commentsCount
+-post:  id / title imageUrl//content/ publichedAt / comments: массив coment: id/author/content/publishedAt
+-users: массив user: id/login/ refisteredAt/role
