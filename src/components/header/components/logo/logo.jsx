@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const LargeText = styled.div`
 font-size:48px;
-font-weight:800;
+font-weight:700;
 line-height:48px
 margin-top:17px
 `;

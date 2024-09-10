@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Header } from "./components";
+import { Header, Footer } from "./components";
 import styled from "styled-components";
 
 const AppColumn = styled.div`
@@ -18,10 +18,6 @@ const Content = styled.div`
 const H2 = styled.h2`
   text-align: center;
 `;
-
-
-const Footer = () => <div> Footer</div>;
-
 
 
 function App() {
@@ -46,3 +42,22 @@ function App() {
 }
 
 export default App;
+
+
+// fetch(
+//   "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={0f74b5bcc0741ee40e4e825f75d26c41}"
+// )
+//   .then((data) => data.json())
+//   .then(console.log);
+
+//   fetch(
+//     "https://api.openweathermap.org/data/2.5/weather?q=Berlin&units=metric&lang=ru&appid={0f74b5bcc0741ee40e4e825f75d26c41}"
+//   )
+//     .then((data) => data.json())
+//     .then(console.log);
+
+//  fetch(
+//    "https://api.openweathermap.org/data/2.5/weather?q=Berlin&units=metric&lang=ru&appid={7eed0150e3325638b42162262a366f46}"
+//  )
+//    .then((data) => data.json())
+//    .then(console.log);
