@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Header, Footer } from "./components";
+import { Authorization } from "./pages";
 import styled from "styled-components";
 
 const AppColumn = styled.div`
@@ -13,22 +14,17 @@ const AppColumn = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 120px 0; 
+  padding: 120px 0;
 `;
-const H2 = styled.h2`
-  text-align: center;
-`;
-
 
 function App() {
   return (
     <AppColumn>
-      <Header/>
+      <Header />
       <Content>
-        <H2> Content</H2>
         <Routes>
           <Route path="/" element={<div>Home</div>} />
-          <Route path="/login" element={<div>Login</div>} />
+          <Route path="/login" element={<Authorization />} />
           <Route path="/register" element={<div>Registration</div>} />
           <Route path="/users" element={<div>Users</div>} />
           <Route path="/post/" element={<div>New Post</div>} />
@@ -42,7 +38,6 @@ function App() {
 }
 
 export default App;
-
 
 // fetch(
 //   "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={0f74b5bcc0741ee40e4e825f75d26c41}"

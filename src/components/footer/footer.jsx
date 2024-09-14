@@ -2,21 +2,27 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export const FooterContainer = ({ className }) => {
-  const [city, setCity] = useState("");
   const [temperature, setTemperature] = useState("");
-  const [weather, setWeather] = useState("");
+  const [windSpeed, setWindSpeed] = useState("");
+  const [humidity, setHumidity] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
+    
     fetch(
-      "https://api.openweathermap.org/data/2.5/weather?q=Berlin&units=metric&lang=ru&appid={7eed0150e3325638b42162262a366f46}"
+      "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m"
     )
       .then((res) => res.json())
-      .then(({ name, main, weather }) => {
-        setCity(name);
-        setTemperature(Math.round(main.temp));
-        setWeather(weather[0].description);
+      .then((data) => {
+        
+        const currentWeather = data.current_weather;
+        setTemperature(currentWeather.temperature);
+        setWindSpeed(currentWeather.windspeed);
+        setHumidity(data.hourly.relative_humidity_2m[0]); 
+        setCurrentTime(currentWeather.time); 
       });
   }, []);
+
   return (
     <div className={className}>
       <div>
@@ -25,11 +31,14 @@ export const FooterContainer = ({ className }) => {
       </div>
       <div>
         <div>
-          {city},{" "}
-          {new Date().toLocaleString("en", { day: "numeric", month: "long" })}
+          Berlin,{" "}
+          {new Date(currentTime).toLocaleString("en", {
+            day: "numeric",
+            month: "long",
+          })}
         </div>
         <div>
-          {temperature}°C,{weather}
+          {temperature}°C, wind: {windSpeed} m/s
         </div>
       </div>
     </div>
