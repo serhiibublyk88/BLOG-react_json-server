@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector, useStore } from "react-redux";
-import { Link,Navigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { server } from "../../bff";
-import { Button, H2, Input } from "../../components";
+import { AuthFormError, Button, H2, Input } from "../../components";
+import { useResetForm } from "../../hooks";
 import { setUser } from "../../actions";
-import { selectUserRole} from '../../selectors'
+import { selectUserRole } from "../../selectors";
 import { ROLE } from "../../constans";
-
 
 import styled from "styled-components";
 
@@ -41,12 +41,6 @@ const StyledLink = styled(Link)`
   margin: 20px 0;
   font-size: 18px;
 `;
-const Errormesage = styled.div`
-  background-color: #fcadad;
-  font-size: 18px;
-  margin: 10px 0 0;
-  padding: 10px;
-`;
 
 const AuthorizationContainer = ({ className }) => {
   const {
@@ -65,22 +59,10 @@ const AuthorizationContainer = ({ className }) => {
   const [serverError, setServerError] = useState(null);
 
   const dispatch = useDispatch();
-  const store = useStore();
 
   const roleId = useSelector(selectUserRole);
-
-  useEffect(() => {
-    let currentWasLogout = store.getState().app.wasLogout;
-
-    return store.subscribe(() => {
-      let previosWasLogout = currentWasLogout;
-      currentWasLogout = store.getState().app.wasLogout;
-
-      if (currentWasLogout !== previosWasLogout) {
-        reset();
-      }
-    });
-  }, [reset,store]);
+  
+  useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
     server.authorize(login, password).then(({ error, res }) => {
@@ -95,9 +77,8 @@ const AuthorizationContainer = ({ className }) => {
   const formError = errors?.login?.message || errors?.password?.message;
   const errorMessage = formError || serverError;
 
-
-  if(roleId !== ROLE.GUEST){
-    return <Navigate to="/"/> 
+  if (roleId !== ROLE.GUEST) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -121,7 +102,7 @@ const AuthorizationContainer = ({ className }) => {
         <Button type="submit" disabled={!!formError}>
           Log In
         </Button>
-        {errorMessage && <Errormesage>{errorMessage}</Errormesage>}
+        {errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
         <StyledLink to="/register">Registration </StyledLink>
       </form>
     </div>

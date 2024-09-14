@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Header, Footer } from "./components";
-import { Authorization } from "./pages";
+import { Authorization, Registration } from "./pages";
 import styled from "styled-components";
 
 const AppColumn = styled.div`
@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<div>Home</div>} />
           <Route path="/login" element={<Authorization />} />
-          <Route path="/register" element={<div>Registration</div>} />
+          <Route path="/register" element={<Registration/>} />
           <Route path="/users" element={<div>Users</div>} />
           <Route path="/post/" element={<div>New Post</div>} />
           <Route path="/post/:postId" element={<div>Post</div>} />
@@ -39,20 +39,3 @@ function App() {
 
 export default App;
 
-// fetch(
-//   "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={0f74b5bcc0741ee40e4e825f75d26c41}"
-// )
-//   .then((data) => data.json())
-//   .then(console.log);
-
-//   fetch(
-//     "https://api.openweathermap.org/data/2.5/weather?q=Berlin&units=metric&lang=ru&appid={0f74b5bcc0741ee40e4e825f75d26c41}"
-//   )
-//     .then((data) => data.json())
-//     .then(console.log);
-
-//  fetch(
-//    "https://api.openweathermap.org/data/2.5/weather?q=Berlin&units=metric&lang=ru&appid={7eed0150e3325638b42162262a366f46}"
-//  )
-//    .then((data) => data.json())
-//    .then(console.log);

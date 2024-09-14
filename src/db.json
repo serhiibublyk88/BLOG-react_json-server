@@ -6,23 +6,37 @@
       "password": "qwerty123",
       "registed_at": "2050-09-22",
       "role_id": 0
+    },
+    {
+      "id": "e69f",
+      "login": "oli",
+      "password": "1111",
+      "registet_at": "1970-02-01 03:21",
+      "role_id": 2
+    },
+    {
+      "id": "c46f",
+      "login": "ivan",
+      "password": "1111",
+      "registet_at": "1970-01-26 23:58",
+      "role_id": 2
     }
   ],
   "roles": [
     {
-      "id": 0,
+      "id": "0",
       "name": "Admin"
     },
     {
-      "id": 1,
+      "id": "1",
       "name": "Moderator"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "User"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Guest"
     }
   ],
