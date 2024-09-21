@@ -61,7 +61,7 @@ const AuthorizationContainer = ({ className }) => {
   const dispatch = useDispatch();
 
   const roleId = useSelector(selectUserRole);
-  
+
   useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
@@ -111,8 +111,9 @@ const AuthorizationContainer = ({ className }) => {
 
 export const Authorization = styled(AuthorizationContainer)`
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+
   & > form {
     display: flex;
     flex-direction: column;
