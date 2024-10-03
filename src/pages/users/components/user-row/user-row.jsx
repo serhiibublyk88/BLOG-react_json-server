@@ -71,17 +71,4 @@ export const UserRow = styled(UserRowContainer)`
   }
 `;
 
-// export const UserRow = styled(UserRowContainer)`
-//   margin: 0.5rem;
-//   display: flex;
-//   align-items: center;
-//   gap: 1rem;
 
-//   & .role-column {
-//     gap: 1rem;
-//   }
-
-//   & select {
-//     font-size: 1rem;
-//   }
-// `;

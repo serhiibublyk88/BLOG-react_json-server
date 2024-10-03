@@ -1,2 +1,3 @@
-export { server } from "./server.jsx";
+import * as server from "./operations";
 
+export { server };
