@@ -44,8 +44,7 @@ const UserRowContainer = ({
               </option>
             ))}
           </select>
-
-          <Icon
+          <Icon          
             id="fa-floppy-o"
             disabled={isSaveButtonDisabled}
             onClick={() => onRoleSave(id, selectedRoleId)}
