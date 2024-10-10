@@ -12,5 +12,5 @@ export const Icon = styled(IconContainer)`
   color: ${({ disabled }) => (disabled ? "#ccc" : "#000")};
 
   &:hover {
-    cursor: ${({ inactive }) => (inactive ? "default":"pointer" )};
+    cursor: ${({ inactive }) => (inactive ? "default":"pointer" )};}
 `;
