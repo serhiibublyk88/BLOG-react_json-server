@@ -26,6 +26,7 @@ const MainContainer = ({ className }) => {
   }, [requestServer,page]);
   return (
     <div className={className}>
+      <Search />
       <div className="post-list">
         {posts.map(({ id, title, imageUrl, publishedAt, commentsCount }) => (
           <PostCard
@@ -38,7 +39,9 @@ const MainContainer = ({ className }) => {
           />
         ))}
       </div>
-      {lastPage > 1 && (<Pagination page={page} lastPage={lastPage} setPage={setPage} />)}
+      {lastPage > 1 && (
+        <Pagination page={page} lastPage={lastPage} setPage={setPage} />
+      )}
     </div>
   );
 };
