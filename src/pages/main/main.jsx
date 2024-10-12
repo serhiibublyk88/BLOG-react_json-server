@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pagination, PostCard } from "./components";
+import { Pagination, PostCard, Search } from "./components";
 import { useServerRequest } from "../../hooks";
 import { PAGINATION_LIMIT } from "../../constans";
 
