@@ -1,11 +1,15 @@
 import { Icon, Input } from "../../../../components";
 import styled from "styled-components";
 
-const SearchContainer = ({ className }) => {
+const SearchContainer = ({ className, searchPhrase, onChange }) => {
   return (
     <div className={className}>
-      <Input />
-      <Icon inactive={true} id="fa-search" margin="0 7px 0 0 " size="18px" />
+      <Input
+        value={searchPhrase}
+        placeholder="Search by titles..."
+        onChange={onChange}
+      />
+      <Icon inactive={true} id="fa-search" size="21px" />
     </div>
   );
 };
@@ -23,7 +27,7 @@ export const Search = styled(SearchContainer)`
   & > div {
     position: absolute;
     top: 9px;
-    right:5px;
-    font-size: 21px;
+    right:9px;
+    
   }
 `;
