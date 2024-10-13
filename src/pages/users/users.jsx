@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
-import { H2, Content } from "../../components";
+import { H2, PrivateContent } from "../../components";
 import { TableRow, UserRow } from "./components";
 import { useServerRequest } from "../../hooks";
 import styled from "styled-components";
 import { ROLE } from "../../constans";
+import { checkAcess } from "../../utils";
+import { useSelector } from "react-redux";
+import { selectUserRole } from "../../selectors";
 
 const UsersContainer = ({ className }) => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [schouldUpdateUserList, setSchouldUpdateUserList] = useState(false);
+  const userRole = useSelector(selectUserRole);
 
   const requestServer = useServerRequest();
 
   useEffect(() => {
+    if (!checkAcess([ROLE.ADMIN], userRole)) {
+      return;
+    }
+
     Promise.all([
       requestServer("fetchUsers"),
       requestServer("fetchRoles"),
@@ -26,18 +34,20 @@ const UsersContainer = ({ className }) => {
       setUsers(usersRes.res);
       setRoles(rolesRes.res);
     });
-  }, [requestServer, schouldUpdateUserList]);
+  }, [requestServer, schouldUpdateUserList, userRole]);
 
   const onUserRemove = (userId) => {
+    if (!checkAcess([ROLE.ADMIN], userRole)) {
+      return;
+    }
     requestServer("removeUser", userId).then(() => {
-      
       setSchouldUpdateUserList(!schouldUpdateUserList);
     });
   };
 
   return (
-    <div className={className}>
-      <Content error={errorMessage}>
+    <PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
+      <div className={className}>
         <H2>Users</H2>
         <div>
           <TableRow>
@@ -54,12 +64,12 @@ const UsersContainer = ({ className }) => {
               registeredAt={registeredAt}
               roleId={roleId}
               roles={roles.filter(({ id: roleId }) => roleId !== ROLE.GUEST)}
-              onUserRemove={()=>onUserRemove(id)}
+              onUserRemove={() => onUserRemove(id)}
             />
           ))}
         </div>
-      </Content>
-    </div>
+      </div>
+    </PrivateContent>
   );
 };
 
