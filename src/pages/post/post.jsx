@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Comments, PostContent, PostForm } from "./components";
 import { useServerRequest } from "../../hooks";
 import { loadPostAsync, RESET_POST_DATA } from "../../actions";
-import { selectPost } from "../../selectors";
+import { selectPost} from "../../selectors";
 import styled from "styled-components";
 import { Error, PrivateContent } from "../../components";
 import { ROLE } from "../../constans";
@@ -18,6 +18,7 @@ const PostContainer = ({ className }) => {
   const isEditing = !!useMatch("/post/:id/edit");
   const requestServer = useServerRequest();
   const post = useSelector(selectPost);
+  
 
   useLayoutEffect(() => {
     dispatch(RESET_POST_DATA);
@@ -39,6 +40,8 @@ const PostContainer = ({ className }) => {
     return null;
   }
 
+ 
+
 const SpecificPostPage =  isCreating || isEditing ? (
     <PrivateContent access={[ROLE.ADMIN]} serverError ={error}>
       <div className={className}>
@@ -48,7 +51,7 @@ const SpecificPostPage =  isCreating || isEditing ? (
   ) : (
     <div className={className}>
       <PostContent post={post} />
-      <Comments comments={post.comments} postId={post.id} />
+       <Comments comments={post.comments} postId={post.id} />
     </div>
   );
 
