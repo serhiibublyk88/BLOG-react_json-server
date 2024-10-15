@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "../../../../components";
@@ -6,7 +7,7 @@ import { useServerRequest } from "../../../../hooks";
 import { selectUserId, selectUserRole } from "../../../../selectors";
 import { addCommentAsync } from "../../../../actions";
 import styled from "styled-components";
-import { ROLE } from "../../../../constans";
+import { PROP_TYPE, ROLE } from "../../../../constans";
 
 const CommentsContainer = ({ className, comments, postId }) => {
   const [newComment, setNewComment] = useState("");
@@ -17,27 +18,28 @@ const CommentsContainer = ({ className, comments, postId }) => {
 
   const onNewCommentAdd = (userId, postId, content) => {
     dispatch(addCommentAsync(requestServer, userId, postId, content));
-    setNewComment('');
+    setNewComment("");
   };
-   const isGuest = userRole === ROLE.GUEST;
+  const isGuest = userRole === ROLE.GUEST;
 
   return (
     <div className={className}>
-      {!isGuest && (<div className="new-comment">
-        <textarea
-          name="comment"
-          value={newComment}
-          placeholder="Comments..."
-          onChange={({ target }) => setNewComment(target.value)}
-        ></textarea>
-        <Icon
-          id="fa-paper-plane-o"
-          size="18px"
-          margin="0 0 0 10px"
-          onClick={() => onNewCommentAdd(userId, postId, newComment)}
-        />
+      {!isGuest && (
+        <div className="new-comment">
+          <textarea
+            name="comment"
+            value={newComment}
+            placeholder="Comments..."
+            onChange={({ target }) => setNewComment(target.value)}
+          ></textarea>
+          <Icon
+            id="fa-paper-plane-o"
+            size="18px"
+            margin="0 0 0 10px"
+            onClick={() => onNewCommentAdd(userId, postId, newComment)}
+          />
         </div>
-        )}
+      )}
       <div className="comments"></div>
       {comments.map(({ id, author, content, publishedAt }) => (
         <Comment
@@ -70,3 +72,9 @@ export const Comments = styled(CommentsContainer)`
     resize: none;
   }
 `;
+
+
+Comments.propTypes = {
+  comments: PropTypes.arrayOf(PROP_TYPE.COMMENT).isRequired,
+  postId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};

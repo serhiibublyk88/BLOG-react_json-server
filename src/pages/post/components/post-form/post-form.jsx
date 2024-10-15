@@ -7,6 +7,7 @@ import { savePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
 import { useServerRequest } from "../../../../hooks";
 import styled from "styled-components";
+import { PROP_TYPE } from "../../../../constans";
 
 const PostFormContainer = ({
   className,
@@ -16,10 +17,10 @@ const PostFormContainer = ({
   const [titleValue, setTitleValue] = useState(title);
   const contentRef = useRef(null);
 
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     setImageUrlValue(imageUrl);
     setTitleValue(title);
-  },[imageUrl, title])
+  }, [imageUrl, title]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const PostFormContainer = ({
         title: titleValue,
         content: newContent,
       })
-    ).then(({id}) => navigate(`/post/${id}`));
+    ).then(({ id }) => navigate(`/post/${id}`));
   };
 
   const onImageChange = ({ target }) => setImageUrlValue(target.value);
@@ -46,19 +47,26 @@ const PostFormContainer = ({
       <Input
         value={imageUrlValue}
         placeholder="Picture url..."
-        onChange={ onImageChange }
+        onChange={onImageChange}
       />
       <Input
         value={titleValue}
         placeholder="Title..."
-        onChange={ onTitleChange }
+        onChange={onTitleChange}
       />
       <SpecialPanel
         id={id}
         onTitleChange
         publishedAt={publishedAt}
         margin="20px 0"
-        editButton={<Icon id="fa-floppy-o" margin ="1 10px 0 0" size="22px" onClick={onSave} />}
+        editButton={
+          <Icon
+            id="fa-floppy-o"
+            margin="1 10px 0 0"
+            size="22px"
+            onClick={onSave}
+          />
+        }
       />
 
       <div
@@ -86,3 +94,7 @@ export const PostForm = styled(PostFormContainer)`
     white-space: pre-line;
   }
 `;
+
+PostForm.propTypes = {
+  post: PROP_TYPE.POST.isRequired,
+};

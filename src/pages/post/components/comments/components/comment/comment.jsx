@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Icon } from "../../../../../../components";
 import {
@@ -34,7 +35,7 @@ const CommentContainer = ({
       })
     );
   };
-  const isAdminOrModerator =[ROLE.ADMIN, ROLE.MODERATOR].includes(userRole);
+  const isAdminOrModerator = [ROLE.ADMIN, ROLE.MODERATOR].includes(userRole);
 
   return (
     <div className={className}>
@@ -64,12 +65,14 @@ const CommentContainer = ({
         <div className="comment-text">{content}</div>
       </div>
 
-      {isAdminOrModerator && <Icon
-        id="fa-trash-o"
-        size="22px"
-        margin="0 0 0 10px"
-        onClick={() => onCommentRemove(id)}
-      />}
+      {isAdminOrModerator && (
+        <Icon
+          id="fa-trash-o"
+          size="22px"
+          margin="0 0 0 10px"
+          onClick={() => onCommentRemove(id)}
+        />
+      )}
     </div>
   );
 };
@@ -92,3 +95,11 @@ export const Comment = styled(CommentContainer)`
     display: flex;
   }
 `;
+
+Comment.propTypes = {
+  postId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  author: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+};

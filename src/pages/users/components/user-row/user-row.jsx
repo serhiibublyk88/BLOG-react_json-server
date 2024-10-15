@@ -1,10 +1,10 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Icon } from "../../../../components";
 import { TableRow } from "../table-row/table-row";
-// import { ROLE } from "../../../../constans";
-import styled from "styled-components";
 import { useServerRequest } from "../../../../hooks";
+import styled from "styled-components";
+import { PROP_TYPE } from "../../../../constans";
 
 const UserRowContainer = ({
   className,
@@ -44,7 +44,7 @@ const UserRowContainer = ({
               </option>
             ))}
           </select>
-          <Icon          
+          <Icon
             id="fa-floppy-o"
             disabled={isSaveButtonDisabled}
             onClick={() => onRoleSave(id, selectedRoleId)}
@@ -70,4 +70,11 @@ export const UserRow = styled(UserRowContainer)`
   }
 `;
 
-
+UserRow.propTypes = {
+  id: PropTypes.string.isRequired,
+  login: PropTypes.string.isRequired,
+  registeredAt: PropTypes.string.isRequired,
+  roleId: PROP_TYPE.ROLE_ID.isRequired,
+  roles: PropTypes.arrayOf(PROP_TYPE.ROLE).isRequired,
+  onUserRemove: PropTypes.func.isRequired,
+};
